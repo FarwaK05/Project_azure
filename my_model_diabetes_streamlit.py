@@ -6,7 +6,7 @@ from tensorflow.keras.models import load_model
   # Import this for handling images
 
 # Streamlit app configuration
-st.set_page_config(page_title='Diabetes Risk Predictor', page_icon=':hospital:', layout='wide')
+st.set_page_config(page_title='Diabetes Risk Detector App', page_icon=':hospital:', layout='wide')
 
 # Load the trained model
 model = load_model(r'my_model_final.h5')
@@ -16,8 +16,8 @@ def main():
     
     # Custom CSS to set the background image
     
-    st.title('Diabetes Risk Predictor')
-    st.markdown("Use the form in the sidebar to input your health indicators and predict the likelihood of diabetes.")
+    st.title('Diabetes Risk Detector App')
+    st.markdown("Use the form in the sidebar to input your health indicators and detect the likelihood of diabetes.")
     
     st.markdown(
         """
@@ -101,19 +101,19 @@ input_df = pd.DataFrame([input_display_data])
 st.write(input_df)
 
 # Make prediction
-if st.button('Predict Diabetes'):
-    with st.spinner('Predicting...'):
+if st.button('Detect Diabetes'):
+    with st.spinner('detecting...'):
         prediction = model.predict(input_data)
         prediction_binary = (prediction > 0.5).astype(int)
         
-    st.subheader('Prediction Result')
+    st.subheader('Dectection Result')
     if prediction_binary[0][0] == 1:
-        st.markdown('### :red[Diabetes Predicted]')
+        st.markdown('### :red[Diabetes detected]')
     else:
-        st.markdown('### :green[No Diabetes Predicted]')
+        st.markdown('### :green[No Diabetes detected]')
 
     # Display probability
-    st.write(f"**Prediction Probability**: {prediction[0][0]:.2f}")
+    st.write(f"**Detecting Probability**: {prediction[0][0]:.2f}")
 
-st.write("This app collects user health information to predict diabetes.")
+st.write("This app collects user health information to dectect diabetes.")
 
